@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour
     bool jump;
     bool touchGround;
     private float horizontal;
+    public static int points = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,16 +35,19 @@ public class Player : MonoBehaviour
             jump = false;
             touchGround = false;
         }
-        rigidBodyComponent.velocity = new Vector3(horizontal, rigidBodyComponent.velocity.y, 0);
+        rigidBodyComponent.velocity = new Vector3(4 * horizontal, rigidBodyComponent.velocity.y, 0);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         touchGround = true;
     }
-
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        if(other.CompareTag("Coin"))
+        {
+            points += 1;
+            Destroy(other.gameObject);
+        }
     }
 }
