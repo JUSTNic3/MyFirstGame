@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Coin
   - Text
+  - ShrinkCoin
   layers:
   - Default
   - TransparentFX

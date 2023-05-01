@@ -44,8 +44,21 @@ public class Player : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Coin"))
+        if(other.CompareTag("ShrinkCoin"))
         {
+            Destroy(other.gameObject);
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+            transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
+            rigidBodyComponent.velocity = new Vector3(6 * horizontal, rigidBodyComponent.velocity.y, 0);
+            if (jump)
+            {
+                rigidBodyComponent.AddForce(9 * Vector3.up, ForceMode.VelocityChange);
+                jump = false;
+                touchGround = false;
+            }
+        }
+        if (other.CompareTag("Coin"))
+        { 
             points += 1;
             Destroy(other.gameObject);
         }

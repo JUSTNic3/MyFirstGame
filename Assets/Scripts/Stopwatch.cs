@@ -8,6 +8,7 @@ public class Stopwatch : MonoBehaviour
     public float timer;
     public int seconds;
     private TextMeshProUGUI TimerText;
+    public int pointsCollected = Player.points;
 
     void Start()
     {
@@ -17,8 +18,12 @@ public class Stopwatch : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
-        seconds = (int)(timer % 60);
-        TimerText.text = seconds.ToString();
+        pointsCollected = Player.points;
+        if (pointsCollected < 6)
+        {
+            timer += Time.deltaTime;
+            seconds = (int)(timer % 60);
+            TimerText.text = seconds.ToString();
+        }
     }
 }
